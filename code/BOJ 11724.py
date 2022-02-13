@@ -6,7 +6,7 @@ from collections import deque
 import sys
 
 
-class Connected_Component(object):
+class ConnectedComponent(object):
   def __init__(self, n, m, graph_list):
     self.node = n
     self.link = m
@@ -49,5 +49,5 @@ if __name__ == "__main__":
   graph = []
   for _ in range(m):
     graph.append(list(map(int, sys.stdin.readline().split())))
-  Connected_Component_problem = Connected_Component(n, m, graph)
-  Connected_Component_problem.solve()
+  ConnectedComponent_problem = ConnectedComponent(n, m, graph)
+  ConnectedComponent_problem.solve()
