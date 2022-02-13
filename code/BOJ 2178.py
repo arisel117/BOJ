@@ -34,7 +34,7 @@ class Maze(object):
         for i, j in self.bfs_check_list:
           que.append([x + i, y + j, c + 1])
 
-  def _solve(self):
+  def solve(self):
     self._make_map()
     self._bfs()
     self._print()
@@ -47,4 +47,4 @@ if __name__ == "__main__":
   n, m = list(map(int, sys.stdin.readline().split()))
   maze_map = [sys.stdin.readline().rstrip() for _ in range(n)]
   Maze_problem = Maze(n, m, maze_map)
-  Maze_problem._solve()
+  Maze_problem.solve()
