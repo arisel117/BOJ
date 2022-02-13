@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 자세한 설명 링크 : https://arisel.notion.site/1946-822cfd96a9d64c91b209a8e1d751c1f3
+# 링크 : https://arisel.notion.site/1946-822cfd96a9d64c91b209a8e1d751c1f3
 
 
 import sys
