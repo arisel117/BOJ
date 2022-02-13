@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 자세한 설명 링크 : https://arisel.notion.site/3047-ABC-58ff01339ecf481c828627e5f7c32200
+# 링크 : https://arisel.notion.site/3047-ABC-58ff01339ecf481c828627e5f7c32200
 
 
 import sys
@@ -29,7 +29,3 @@ if __name__ == "__main__":
 
   abc_problem = ABC(ints, strs)
   abc_problem.solve()
-
-
-if __name__ == "__main__":
-  response()
