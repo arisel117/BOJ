@@ -2,43 +2,45 @@
 # 링크 : https://arisel.notion.site/1753-a0ea44f9a8ab4699a0230893077e7022
 
 
-import sys
+from sys import stdin
 import heapq as H
 
 
 class ShortestPath(object):
-  def __init__(self, nodes, lines, start_node, dic_list):
+  def __init__(self, n_node, n_edge, start_node, graph_map):
     self.inf = int(1e9)
-    self.nodes = nodes
-    self.lines = lines
-    self.start_node = start_node
-    self.dic_list = dic_list
-    self.graph = {i : {} for i in range(1, self.nodes + 1)}
-    self.dist = {_ : self.inf for _ in self.graph}
+    self.n = n_node
+    self.m = n_edge
+    self.start = start_node
+    self.graph_map = graph_map
+    self.graph = {i : {} for i in range(1, self.n + 1)}
+    
 
   def _make_graph(self):
-    for origin, destination, weight in dic_list:
-      if self.graph[origin].get(destination) == None:
-        self.graph[origin][destination] = weight
+    for o, d, w in graph_map:
+      if self.graph[o].get(d) == None:
+        self.graph[o][d] = w
       else:
-        self.graph[origin][destination] = min(self.graph[origin][destination], weight)
+        self.graph[o][d] = min(self.graph[o][d], w)
 
   def _dijkstra(self):
-    self.que = []
-    self.dist[self.start_node] = 0
-    H.heappush(self.que, [self.dist[self.start_node], self.start_node])
-    while self.que:
-      current_distance, current_destination = H.heappop(self.que)
-      if self.dist[current_destination] < current_distance:
+    que = []
+    dist = {_ : self.inf for _ in self.graph}
+    dist[self.start] = 0
+    H.heappush(que, [dist[self.start], self.start])
+    while que:
+      now_dist, now_d = H.heappop(que)
+      if dist[now_d] < now_dist:
         continue
-      for new_distance, new_destination in self.graph[current_destination].items():
-        cumulative_distance = current_distance + new_destination
-        if cumulative_distance < self.dist[new_distance]:
-          self.dist[new_distance] = cumulative_distance
-          H.heappush(self.que, [cumulative_distance, new_distance])
+      for new_dist, new_d in self.graph[now_d].items():
+        cm_dist = now_dist + new_d
+        if cm_dist < dist[new_dist]:
+          dist[new_dist] = cm_dist
+          H.heappush(que, [cm_dist, new_dist])
+    return dist
 
-  def _return(self):
-    for i in self.dist.values():
+  def _print(self, dist):
+    for i in dist.values():
       if i == self.inf:
         print("INF")
       else:
@@ -46,15 +48,13 @@ class ShortestPath(object):
 
   def solve(self):
     self._make_graph()
-    self._dijkstra()
-    self._return()
+    dist = self._dijkstra()
+    self._print(dist)
 
 
 if __name__ == "__main__":
-  nodes, lines = map(int, sys.stdin.readline().split())
-  start_node = int(sys.stdin.readline())
-  dic_list = []
-  for i in range(lines):
-    dic_list.append(list(map(int, sys.stdin.readline().split())))
-  ShortestPath_problem = ShortestPath(nodes, lines, start_node, dic_list)
+  n_node, n_edge = map(int, stdin.readline().split())
+  start_node = int(stdin.readline())
+  graph_map = [list(map(int, stdin.readline().split())) for i in range(n_edge)]
+  ShortestPath_problem = ShortestPath(n_node, n_edge, start_node, graph_map)
   ShortestPath_problem.solve()
