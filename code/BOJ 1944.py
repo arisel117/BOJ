@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # 링크 : https://arisel.notion.site/1944-b1f6887df0e342adadd1ab0b6b1312a3
-
+# 개선된 코드로 수정됨 - _loc의 i to j 를 찾을 때, 한 i에 대해 모든 위치에 대해 구한 후, j들에 대해 한 번에 채우는 개념을 사용함
 
 from collections import deque
 from sys import stdin
@@ -23,26 +23,24 @@ class Robots(object):
         if k == "S" or k == "K":
           self._loc.append([i, j])
 
-  def _dfs(self, linkA, linkB):
-    dR, dC = linkB
-    que = deque([linkA])
+  def _dfs(self, _link):
+    que = deque([_link])
     visited = [[0 for j in range(self.n)] for i in range(self.n)]
     while(que):
-      r, c = que.popleft()
-      if r == dR and c == dC:
-        return visited[r][c]
+      r, c = que.popleft()      
       for i, j in self._around:
         nR, nC = r + i, c + j
         if 0 <= nR < self.n and 0 <= nC < self.n and visited[nR][nC] == 0 and self.g[nR][nC] != "1":
           visited[nR][nC] = visited[r][c] + 1
           que.append([nR, nC])
-    return -1
+    return visited
 
   def _build_tree(self):
     for i in range(self.m + 1):
+      _visited = self._dfs(self._loc[i])
       for j in range(i + 1, self.m + 1):
-        min_d = self._dfs(self._loc[i], self._loc[j])
-        if min_d == -1:
+        min_d = _visited[self._loc[j][0]][self._loc[j][1]]
+        if min_d == 0:
           self.res = -1
           return 0
         self.tree.append((min_d, i, j))
