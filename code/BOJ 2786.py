@@ -3,7 +3,6 @@
 
 
 from sys import stdin
-import heapq
 
 
 class Restaurant(object):
@@ -21,12 +20,12 @@ class Restaurant(object):
     return cost[::-1]
   
   def _find(self):
-    now, que = 0, []
+    now, _min = 0, 1000001
     for i in range(self.n):
       before = now
       now += self.arr[i][1]
-      heapq.heappush(que, self.arr[i][0] - self.arr[i][1])
-      self.res.append(min(before + self.cost[i], now + que[0]))
+      _min = min(_min, self.arr[i][0] - self.arr[i][1])
+      self.res.append(min(before + self.cost[i], now + _min))
 
   def _pirnt(self):
     print(*self.res, sep="\n")
