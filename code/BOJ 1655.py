@@ -10,31 +10,34 @@ class MedianValue(object):
   def __init__(self, n: int, arr: list):
     self.n = n
     self.arr = arr
-    self.MinH = [10001]
-    self.MaxH = [10001]
-    self.nlist = []
+    self.MaxH, self.MinH = [], []
     self.res = []
 
   def _heappush(self, num: int):
-    self.nlist.extend([num, -H.heappop(self.MaxH), H.heappop(self.MinH)])
-    self.nlist.sort()
-
-    if len(self.nlist) == 3:
-      self.res.append(self.nlist[1])
+    if len(self.MaxH) > len(self.MinH):
+      H.heappush(self.MinH, num)
     else:
-      self.res.append(min(self.nlist[1:3]))
-      H.heappush(self.MaxH, -self.nlist.pop(0))
-      H.heappush(self.MinH, self.nlist.pop())
-    H.heappush(self.MaxH, -self.nlist.pop(0))
-    H.heappush(self.MinH, self.nlist.pop())
+      H.heappush(self.MaxH, -num)
 
+  def _if_swap(self):
+    if -self.MaxH[0] > self.MinH[0]:
+      H.heappush(self.MinH, -H.heappop(self.MaxH))
+      H.heappush(self.MaxH, -H.heappop(self.MinH))
+
+  def _get_median(self):
+    self.MaxH.append(-self.arr[0])
+    self.res.append(self.arr[0])
+
+    for num in self.arr[1:]:
+      self._heappush(num)
+      self._if_swap()
+      self.res.append(-self.MaxH[0])
+  
   def _print(self):
     print(*self.res, sep="\n")
 
   def solve(self):
-    for num in self.arr:
-      self._heappush(num)
-
+    self._get_median()
     self._print()
 
 
