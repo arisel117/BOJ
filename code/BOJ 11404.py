@@ -26,6 +26,11 @@ class Floyd(object):
     for i in range(1, self.n+1):
       self._map[i][i] = 0
 
+    for i in range(1, self.n+1):
+      for j in range(1, self.n+1):
+        if self._map[i][j] >= self.INF:
+          self._map[i][j] = 0
+
   def _print(self):
     for _l in self._map[1:]:
       print(*_l[1:])
