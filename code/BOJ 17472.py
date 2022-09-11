@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 링크 : https://arisel.notion.site/1742-2-652fcd5c0b8a4f468061392ed54f803f
+# 링크 : https://arisel.notion.site/17472-2-652fcd5c0b8a4f468061392ed54f803f
 
 
 from sys import stdin
