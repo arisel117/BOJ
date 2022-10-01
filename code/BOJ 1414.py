@@ -2,9 +2,6 @@
 # 링크 : https://arisel.notion.site/1414-3bdb02f61f664f8ba5012b45c0af0d06
 
 
-# Python3 통과 코드
-
-
 from sys import stdin
 import heapq as H
 
