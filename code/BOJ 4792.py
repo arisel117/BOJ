@@ -31,7 +31,7 @@ class RedBlueTree(object):
   def _kruskal(self):
     cnt = 0
     self.parents = [i for i in range(self.n + 1)]
-    for color, src, dst in self.edges[::-1]:
+    for color, src, dst in self.edges:
       if self._union(src, dst) and color:
         cnt += 1
     self.res.append(cnt)
